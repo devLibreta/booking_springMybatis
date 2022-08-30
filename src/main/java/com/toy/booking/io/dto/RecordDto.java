@@ -1,11 +1,11 @@
 package com.toy.booking.io.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class IoDto {
+@Builder
+public class RecordDto {
     private Long recordId;
     private String recordType;
     private String recordTitle;

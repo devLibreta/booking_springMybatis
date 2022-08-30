@@ -1,9 +1,13 @@
-package com.toy.booking.io.dto;
+package com.toy.booking.io.entity;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
-public class SummaryBooking {
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class SummaryEntity {
     private int openingBalance;
     private int balance;
     private int totalIncome;

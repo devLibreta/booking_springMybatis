@@ -1,43 +1,57 @@
 package com.toy.booking.io.controller;
 
-import com.toy.booking.io.dto.IoDto;
-import com.toy.booking.io.dto.SummaryBooking;
-import com.toy.booking.io.service.IoService;
+import com.toy.booking.io.dto.RecordDto;
+import com.toy.booking.io.entity.SummaryEntity;
+import com.toy.booking.io.service.RecordService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/record")
-public class IoController {
-    private final IoService ioService;
+public class RecordController {
+    private final RecordService recordService;
 
-    // record 기록 조회
+    // record 조회
     @GetMapping(value = "/selectRecordAll", produces = MediaType.APPLICATION_JSON_VALUE) // JSON 타입으로 응답(기본)
-    public ResponseEntity<IoDto> SelectRecordAll(){
+    public ResponseEntity<List<RecordDto>> SelectRecordAll(){
+        return new ResponseEntity<>(recordService.selectRecordAll(), HttpStatus.OK);
     }
-    // record 기록 입력
+    // record 입력
     @PostMapping(value = {"/insertRecord"}, consumes = MediaType.APPLICATION_JSON_VALUE) // JSON 타입의 요청만 받음
-    public ResponseEntity<IoDto> insertRecord(){
+    public ResponseEntity<Long> insertRecord(@RequestBody RecordDto recordDto){
+        Long rno = recordService.insertRecord(recordDto);
+        return new ResponseEntity<>(rno, HttpStatus.OK);
+    }
+    // record 수정
+    @PostMapping(value = "/updateRecord", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateRecord(@RequestBody RecordDto recordDto){
+        recordService.updateRecord(recordDto);
+        return new ResponseEntity<>("success",HttpStatus.OK);
 
     }
-    // 특정 record 기록 삭제
-    @DeleteMapping(value = {"/delete/{rno}"}, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IoDto> deleteById(@PathVariable Long rno){
 
+    // 특정 record 삭제
+    @DeleteMapping(value = {"/delete/{rno}"})
+    public ResponseEntity<String> deleteById(@PathVariable Long rno){
+        recordService.deleteRecord(rno);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    // 특정 record 기록 조회
+    // 특정 record 조회
     @GetMapping(value = "/select/{rno}", produces = MediaType.APPLICATION_JSON_VALUE) // JSON 타입으로 응답(기본)
-    public ResponseEntity<IoDto> selectById(@PathVariable Long rno){
-
+    public ResponseEntity<RecordDto> selectById(@PathVariable Long rno){
+        return new ResponseEntity<>(recordService.selectById(rno),HttpStatus.OK);
     }
     // totalSumList 조회
-    @GetMapping(value = "/selectRecordSummary" , produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SummaryBooking> selectSummary(){
-
-    }
+//    @GetMapping(value = "/selectRecordSummary" , produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<SummaryEntity> selectSummary(){
+//
+//    }
 
 }
