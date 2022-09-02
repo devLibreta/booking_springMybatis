@@ -12,8 +12,8 @@ CREATE TABLE record(
     recordTitle VARCHAR2(100) NOT NULL,
     recordDetail VARCHAR2(100) NOT NULL,
     recordPrice int NOT NULL,
-    regDate DATE NOT NULL,
-    modDate DATE NOT NULL ,
+    regDate DATETIME NOT NULL,
+    modDate DATETIME NOT NULL ,
     paymentMethod VARCHAR2(100) NOT NULL
    );
 --

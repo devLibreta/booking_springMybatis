@@ -1,6 +1,7 @@
 package com.toy.booking.io.repository;
 
 import com.toy.booking.io.entity.RecordEntity;
+import com.toy.booking.io.entity.UserInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public interface MybatisRepository {
     @Options(useGeneratedKeys = true, keyProperty = "recordId")
     public void insertRecord(RecordEntity recordEntity);
 
+
     @Update("UPDATE RECORD SET recordType= #{recordType}, recordTitle=#{recordTitle}," +
             " recordDetail=#{recordDetail}, recordPrice=#{recordPrice}," +
             " modDate=#{modDate}, paymentMethod= #{paymentMethod}" +
@@ -35,4 +37,9 @@ public interface MybatisRepository {
 
 //    @Select("SELECT * FROM SUMMARY-RECORD")
 //    public SummaryEntity selectSummary();
+
+    @Insert("INSERT INTO USERINFO (USERID, PASSWORD) VALUES( #{userId},#{password} )")
+    public void test(UserInfo userInfo);
+    @Select("SELECT * FROM USERINFO")
+    public List<UserInfo> selectTest();
 }
