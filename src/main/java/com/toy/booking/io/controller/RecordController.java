@@ -1,7 +1,6 @@
 package com.toy.booking.io.controller;
 
 import com.toy.booking.io.dto.RecordDto;
-import com.toy.booking.io.entity.SummaryEntity;
 import com.toy.booking.io.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
